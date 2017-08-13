@@ -7,10 +7,15 @@
     {
       "taskName": "build",
       "args": [
-        "${workspaceRoot}/src/model/ConnectFour.csproj"
+        "${workspaceRoot}/ConnectFour.sln"
       ],
       "isBuildCommand": true,
       "problemMatcher": "$msCompile"
+    },
+    {
+      "taskName": "unittests",
+      "isTestCommand": true,
+      "command": "dotnet test"
     }
   ]
 }

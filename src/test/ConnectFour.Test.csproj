@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\model\ConnectFour.csproj" />
+    <ProjectReference Include="..\model\ConnectFour.csproj" />
+    <ProjectReference Include="..\extensions\Extensions.csproj" />
   </ItemGroup>
 
 </Project>

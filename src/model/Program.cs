@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace ConnectFour
+﻿namespace ConnectFour
 {
+  using System;
+
   class Program
   {
     static void Main(string[] args)

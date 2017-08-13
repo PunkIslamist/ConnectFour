@@ -9,6 +9,6 @@ namespace ConnectFour
 
     }
 
-    public IEnumerable<Field> Fields { get; }
+    public IEnumerable<IEnumerable<char>> Fields { get; }
   }
 }
