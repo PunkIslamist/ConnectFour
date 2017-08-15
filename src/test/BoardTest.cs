@@ -7,26 +7,37 @@ namespace ConnectFour.Test
 
   public class BoardTest
   {
+    private const char p1 = 'X';
+    private const char p2 = 'T';
     private const int rowCount = 6;
     private const int columnCount = 7;
 
     [Fact]
-    public void Constructor_DefaultValues_ReturnsEmptyBoard()
+    public void Constructor_Default_ReturnsEmptyBoard()
     {
-      var board = this.CreateDefaultBoard();
-      var emptyRow = Enumerable.Range(0, columnCount)
-        .Select(it => 'O');
-      var expected = Enumerable.Range(0, rowCount)
-        .Select(it => emptyRow);
+      var board = this.CreateBoard();
+      var expected = Enumerable.Range(0, rowCount * columnCount)
+        .Select(it => Board.EmptyField);
 
       var actual = board.Fields;
 
       Assert.Equal(expected, actual);
     }
 
-    private Board CreateDefaultBoard()
+    [Fact]
+    public void MakeMove_XInFirstColumn_FieldBottomLeftIsX()
     {
-      return new Board(rowCount, columnCount);
+      var board = this.CreateBoard();
+
+      var actual = board.MakeMove(column: 0, symbol: p1);
+
+      Assert.Equal(actual.Columns.First().Last(), p1);
+      Assert.Equal(columnCount * rowCount - 1, actual.Fields.Count());
+    }
+
+    private Board CreateBoard()
+    {
+      return new Board();
     }
   }
 }
