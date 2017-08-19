@@ -13,9 +13,11 @@
       "problemMatcher": "$msCompile"
     },
     {
-      "taskName": "unittests",
-      "isTestCommand": true,
-      "command": "dotnet test"
+      "taskName": "test",
+      "args": [
+        "${workspaceRoot}/src/test/ConnectFour.Test.csproj"
+      ],
+      "isTestCommand": true
     }
   ]
 }
