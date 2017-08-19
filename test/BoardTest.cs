@@ -26,5 +26,15 @@ namespace ConnectFour.Test
 
       Assert.True(actual.All(it => it == board.EmptyField));
     }
+
+    [Fact]
+    public void MakeMove_EmptyBoard_FirstRowOfColumnIsSet()
+    {
+      var board = new Board();
+
+      board.MakeMove(board.Player1, column: 0);
+
+      Assert.True(board.Columns.First().First() == board.Player1);
+    }
   }
 }
