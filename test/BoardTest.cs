@@ -36,5 +36,27 @@ namespace ConnectFour.Test
 
       Assert.True(board.Columns.First().First() == board.Player1);
     }
+
+    [Theory,
+    InlineData(1),
+    InlineData(2),
+    InlineData(3),
+    InlineData(4),
+    InlineData(5),
+    InlineData(6)]
+    public void MakeMove_Repeatedly_ColumnIsFilledWithNPlayers(int columnAndCount)
+    {
+      var board = new Board();
+
+      for (int i = 0; i < columnAndCount; ++i)
+      {
+        board.MakeMove(board.Player1, column: columnAndCount);
+      }
+
+      Assert.True(board.Columns
+      .ElementAt(columnAndCount)
+      .Take(columnAndCount)
+      .All(it => it == board.Player1));
+    }
   }
 }

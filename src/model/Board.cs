@@ -42,7 +42,14 @@ namespace ConnectFour.Model
 
     public void MakeMove(Player player, int column)
     {
-      this.fields[column, 0] = player;
+      var freeField = 0;
+
+      while (this.fields[column, freeField] != this.EmptyField)
+      {
+        ++freeField;
+      }
+
+      this.fields[column, freeField] = player;
     }
   }
 }
