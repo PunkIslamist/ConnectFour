@@ -24,7 +24,17 @@ namespace ConnectFour.Model
     public IEnumerable<Column> Columns => this.GetColumns();
     public IEnumerable<Move> PossibleMoves => this.CalculatePossibleMoves();
 
-    public IEnumerable<Row> Rows { get; }
+    public IEnumerable<Row> Rows => this.GetRows();
+
+    private IEnumerable<Row> GetRows()
+    {
+      for (int nr = 0; nr < rows; ++nr)
+      {
+        var row = new Row(nr);
+
+        yield return row;
+      }
+    }
 
     private IEnumerable<Move> CalculatePossibleMoves()
     {
