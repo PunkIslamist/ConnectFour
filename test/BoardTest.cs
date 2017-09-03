@@ -24,7 +24,8 @@ namespace ConnectFour.Test
     {
       var board = new Board();
 
-      var actual = board.Columns.All(it => !it.Any());
+      var actual = board.Columns.All(it => it.IsEmpty);
+
       Assert.True(actual);
     }
 
@@ -32,48 +33,30 @@ namespace ConnectFour.Test
     public void PossibleMoves_EmptyBoard_AllColumnsForPlayer1()
     {
       var board = new Board();
+      var expectedNumbers = Enumerable.Range(1, board.Columns.Count());
 
-      var actual = board.PossibleMoves;
+      var actual = board.PossibleMoves
+        .Select(it => it.PlayedColumn.Number);
 
-      var expectedColumns = Enumerable.Range(1, board.Columns.Count());
       Assert.True(
-        expectedColumns.All(
-          column => actual.Any(move => move.PlayedColumn == column)));
+        actual.All(
+          it => expectedNumbers.Contains(it)));
     }
 
     [Fact]
     public void MakeMove_EmptyBoard_FirstRowOfColumnIsSet()
     {
       var board = new Board();
-      var move = new Move(Player.Player1, playedColumn: 0);
+      var move = new Move(Player.Player1, board.Columns.First());
       board.Make(move);
 
       Assert.True(board.Columns.First()[0] == Player.Player1);
     }
 
-    [Theory,
-    InlineData(1),
-    InlineData(2),
-    InlineData(3),
-    InlineData(4),
-    InlineData(5),
-    InlineData(6)]
-    public void MakeMove_Repeatedly_ColumnIsFilledWithNPlayers(int columnAndCount)
+    [Fact]
+    public void MakeMove_Repeatedly_ColumnIsFilledWithNPlayers()
     {
-      var board = new Board();
-      Move move;
-
-      for (int i = 0; i < columnAndCount; ++i)
-      {
-        move = new Move(Player.Player1, columnAndCount);
-        board.Make(move);
-      }
-
-      Assert.True(
-        board.Columns
-         .ElementAt(columnAndCount)
-         .Take(columnAndCount)
-         .All(it => it == Player.Player1));
+      throw new NotImplementedException();
     }
   }
 }

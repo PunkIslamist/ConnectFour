@@ -10,35 +10,34 @@ namespace ConnectFour.Model
     private const int columns = 7;
     private Player[,] fields = new Player[columns, rows];
 
+    public IEnumerable<Column> Columns => this.GetColumns();
+    public IEnumerable<Row> Rows => this.GetRows();
+    public IEnumerable<Move> PossibleMoves => this.CalculatePossibleMoves();
+
     public Board()
     {
-      for (int col = 0; col < columns; ++col)
+      for (int col = 0; col < Board.columns; ++col)
       {
-        for (int row = 0; row < rows; ++row)
+        for (int row = 0; row < Board.rows; ++row)
         {
           this.fields[col, row] = Player.EmptyField;
         }
       }
     }
 
-    public IEnumerable<Column> Columns => this.GetColumns();
-    public IEnumerable<Move> PossibleMoves => this.CalculatePossibleMoves();
-
-    public IEnumerable<Row> Rows => this.GetRows();
+    public void Make(Move move)
+    {
+      throw new NotImplementedException();
+    }
 
     private IEnumerable<Row> GetRows()
     {
-      for (int nr = 0; nr < rows; ++nr)
+      for (int nr = 0; nr < Board.rows; ++nr)
       {
         var row = new Row(nr);
 
         yield return row;
       }
-    }
-
-    private IEnumerable<Move> CalculatePossibleMoves()
-    {
-      throw new NotImplementedException();
     }
 
     private IEnumerable<Column> GetColumns()
@@ -51,16 +50,11 @@ namespace ConnectFour.Model
       }
     }
 
-    public void Make(Move move)
+    private IEnumerable<Move> CalculatePossibleMoves()
     {
-      var freeField = 0;
-
-      while (this.fields[move.PlayedColumn, freeField] != Player.EmptyField)
-      {
-        ++freeField;
-      }
-
-      this.fields[move.PlayedColumn, freeField] = move.MovingPlayer;
+      return this.Columns
+       .Where(it => it.IsEmpty)
+       .Select(it => new Move(Player.Player1, it));
     }
   }
 }
