@@ -16,15 +16,15 @@ namespace ConnectFour.Model
       {
         for (int row = 0; row < rows; ++row)
         {
-          this.fields[col, row] = this.EmptyField;
+          this.fields[col, row] = Board.EmptyField;
         }
       }
     }
 
     public IEnumerable<IEnumerable<Player>> Columns => this.GetColumns();
-    public Player EmptyField { get; } = new Player('_');
-    public Player Player1 { get; } = new Player('X');
-    public Player Player2 { get; } = new Player('O');
+    public static Player EmptyField { get; } = new Player('_');
+    public static Player Player1 { get; } = new Player('X');
+    public static Player Player2 { get; } = new Player('O');
 
     private IEnumerable<IEnumerable<Player>> GetColumns()
     {
@@ -44,7 +44,7 @@ namespace ConnectFour.Model
     {
       var freeField = 0;
 
-      while (this.fields[column, freeField] != this.EmptyField)
+      while (this.fields[column, freeField] != Board.EmptyField)
       {
         ++freeField;
       }

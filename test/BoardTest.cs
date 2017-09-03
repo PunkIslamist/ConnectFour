@@ -24,7 +24,7 @@ namespace ConnectFour.Test
 
       var actual = board.Columns.SelectMany(it => it);
 
-      Assert.True(actual.All(it => it == board.EmptyField));
+      Assert.True(actual.All(it => it == Board.EmptyField));
     }
 
     [Fact]
@@ -32,9 +32,9 @@ namespace ConnectFour.Test
     {
       var board = new Board();
 
-      board.MakeMove(board.Player1, column: 0);
+      board.MakeMove(Board.Player1, column: 0);
 
-      Assert.True(board.Columns.First().First() == board.Player1);
+      Assert.True(board.Columns.First().First() == Board.Player1);
     }
 
     [Theory,
@@ -50,13 +50,13 @@ namespace ConnectFour.Test
 
       for (int i = 0; i < columnAndCount; ++i)
       {
-        board.MakeMove(board.Player1, column: columnAndCount);
+        board.MakeMove(Board.Player1, column: columnAndCount);
       }
 
       Assert.True(board.Columns
       .ElementAt(columnAndCount)
       .Take(columnAndCount)
-      .All(it => it == board.Player1));
+      .All(it => it == Board.Player1));
     }
   }
 }
