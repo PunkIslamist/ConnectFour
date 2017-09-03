@@ -16,26 +16,27 @@ namespace ConnectFour.Model
       {
         for (int row = 0; row < rows; ++row)
         {
-          this.fields[col, row] = Board.EmptyField;
+          this.fields[col, row] = Player.EmptyField;
         }
       }
     }
 
-    public IEnumerable<IEnumerable<Player>> Columns => this.GetColumns();
-    public static Player EmptyField { get; } = new Player('_');
-    public static Player Player1 { get; } = new Player('X');
-    public static Player Player2 { get; } = new Player('O');
+    public IEnumerable<Column> Columns => this.GetColumns();
+    public IEnumerable<Move> PossibleMoves => this.CalculatePossibleMoves();
 
-    private IEnumerable<IEnumerable<Player>> GetColumns()
+    public IEnumerable<Row> Rows { get; }
+
+    private IEnumerable<Move> CalculatePossibleMoves()
+    {
+      throw new NotImplementedException();
+    }
+
+    private IEnumerable<Column> GetColumns()
     {
       for (int col = 0; col < columns; ++col)
       {
-        var column = new Player[rows];
+        var column = new Column(col);
 
-        for (int row = 0; row < rows; ++row)
-        {
-          column[row] = this.fields[col, row];
-        }
         yield return column;
       }
     }
@@ -44,7 +45,7 @@ namespace ConnectFour.Model
     {
       var freeField = 0;
 
-      while (this.fields[move.PlayedColumn, freeField] != Board.EmptyField)
+      while (this.fields[move.PlayedColumn, freeField] != Player.EmptyField)
       {
         ++freeField;
       }

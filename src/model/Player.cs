@@ -4,9 +4,13 @@ namespace ConnectFour.Model
 {
   public class Player : IEquatable<Player>
   {
+    public static Player EmptyField => new Player('_');
+    public static Player Player1 => new Player('x');
+    public static Player Player2 => new Player('o');
+
     public char Sign { get; }
 
-    public Player(char sign)
+    private Player(char sign)
     {
       this.Sign = sign;
     }

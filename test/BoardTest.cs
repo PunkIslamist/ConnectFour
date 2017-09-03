@@ -8,13 +8,15 @@ namespace ConnectFour.Test
   public class BoardTest
   {
     [Fact]
-    public void CreateBoard_DefaultConstructor_CountIs42()
+    public void CreateBoard_DefaultConstructor_6Rows7Columns()
     {
       var board = new Board();
 
-      var actual = board.Columns.SelectMany(it => it);
+      var rowCount = board.Rows.Count();
+      var columnCount = board.Columns.Count();
 
-      Assert.True(actual.Count() == 6 * 7);
+      Assert.True(rowCount == 6);
+      Assert.True(columnCount == 6);
     }
 
     [Fact]
@@ -22,19 +24,31 @@ namespace ConnectFour.Test
     {
       var board = new Board();
 
-      var actual = board.Columns.SelectMany(it => it);
+      var actual = board.Columns.All(it => !it.Any());
+      Assert.True(actual);
+    }
 
-      Assert.True(actual.All(it => it == Board.EmptyField));
+    [Fact]
+    public void PossibleMoves_EmptyBoard_AllColumnsForPlayer1()
+    {
+      var board = new Board();
+
+      var actual = board.PossibleMoves;
+
+      var expectedColumns = Enumerable.Range(1, board.Columns.Count());
+      Assert.True(
+        expectedColumns.All(
+          column => actual.Any(move => move.PlayedColumn == column)));
     }
 
     [Fact]
     public void MakeMove_EmptyBoard_FirstRowOfColumnIsSet()
     {
       var board = new Board();
-      var move = new Move(Board.Player1, playedColumn: 0);
+      var move = new Move(Player.Player1, playedColumn: 0);
       board.Make(move);
 
-      Assert.True(board.Columns.First().First() == Board.Player1);
+      Assert.True(board.Columns.First()[0] == Player.Player1);
     }
 
     [Theory,
@@ -51,14 +65,15 @@ namespace ConnectFour.Test
 
       for (int i = 0; i < columnAndCount; ++i)
       {
-        move = new Move(Board.Player1, columnAndCount);
+        move = new Move(Player.Player1, columnAndCount);
         board.Make(move);
       }
 
-      Assert.True(board.Columns
-      .ElementAt(columnAndCount)
-      .Take(columnAndCount)
-      .All(it => it == Board.Player1));
+      Assert.True(
+        board.Columns
+         .ElementAt(columnAndCount)
+         .Take(columnAndCount)
+         .All(it => it == Player.Player1));
     }
   }
 }
