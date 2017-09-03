@@ -9,7 +9,7 @@ namespace ConnectFour.Model
     protected abstract int Size { get; }
     public int Number { get; }
     public IEnumerable<Player> Fields { get; }
-    public bool IsEmpty => this.Any(it => it != Player.EmptyField);
+    public bool IsEmpty => this.All(it => it.Equals(Player.EmptyField));
 
     public Player this[int i]
     {
