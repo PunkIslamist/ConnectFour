@@ -16,7 +16,7 @@ namespace ConnectFour.Test
       var columnCount = board.Columns.Count();
 
       Assert.True(rowCount == 6);
-      Assert.True(columnCount == 6);
+      Assert.True(columnCount == 7);
     }
 
     [Fact]
