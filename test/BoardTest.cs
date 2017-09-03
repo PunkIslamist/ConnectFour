@@ -31,8 +31,8 @@ namespace ConnectFour.Test
     public void MakeMove_EmptyBoard_FirstRowOfColumnIsSet()
     {
       var board = new Board();
-
-      board.MakeMove(Board.Player1, column: 0);
+      var move = new Move(Board.Player1, playedColumn: 0);
+      board.Make(move);
 
       Assert.True(board.Columns.First().First() == Board.Player1);
     }
@@ -47,10 +47,12 @@ namespace ConnectFour.Test
     public void MakeMove_Repeatedly_ColumnIsFilledWithNPlayers(int columnAndCount)
     {
       var board = new Board();
+      Move move;
 
       for (int i = 0; i < columnAndCount; ++i)
       {
-        board.MakeMove(Board.Player1, column: columnAndCount);
+        move = new Move(Board.Player1, columnAndCount);
+        board.Make(move);
       }
 
       Assert.True(board.Columns

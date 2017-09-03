@@ -40,16 +40,16 @@ namespace ConnectFour.Model
       }
     }
 
-    public void MakeMove(Player player, int column)
+    public void Make(Move move)
     {
       var freeField = 0;
 
-      while (this.fields[column, freeField] != Board.EmptyField)
+      while (this.fields[move.PlayedColumn, freeField] != Board.EmptyField)
       {
         ++freeField;
       }
 
-      this.fields[column, freeField] = player;
+      this.fields[move.PlayedColumn, freeField] = move.MovingPlayer;
     }
   }
 }
